@@ -1,0 +1,89 @@
+
+@startuml
+    class BTS_GameplayAbility
+    {
+        +FGameplayTag StartupInputTag;
+    }
+    class BTS_AbilitySystemComponent
+    {
+    	+FEffectAssetTags EffectAssetTags
+
+        +void AddCharacterAbility(TSubclassOf<UGameplayAbility> Ability)
+        +void AbilityInputTagPressed(const FGameplayTag& InputTag)
+        +void AbilityInputTagHold(const FGameplayTag& InputTag)
+        +void AbilityInputTagReleased(const FGameplayTag& InputTag)
+    }
+    class BTS_AttributeSet
+    {
+        +FGameplayAttributeData attributes
+        +FGameplayAttributeData metaAttributes
+
+        +virtual void PreAttributeChange() override
+	    +virtual void PostGameplayEffectExecute() override
+    }
+    class BTS_CharacterBase
+    {
+        #TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent
+        #TObjectPtr<UAttributeSet> AttributeSet
+        #TSubclassOf<UGameplayEffect> Attributes
+    	#TArray<TSubclassOf<UGameplayAbility>> Abilities
+
+    	+UAbilitySystemComponent* GetAbilitySystemComponent() const override
+	    +UAttributeSet* GetAttributeSet() const override
+    }
+    class BTS_Player
+    {
+    }
+    class BTS_PlayerState
+    {
+        #TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent
+        #TObjectPtr<UAttributeSet> AttributeSet
+
+    	+UAbilitySystemComponent* GetAbilitySystemComponent() const override
+	    +UAttributeSet* GetAttributeSet() const
+    }
+    struct BTS_GaamplayTags
+    {
+    	-static FBTS_GameplayTags GameplayTags;
+    	+FGameplayTag MagnitudeTag
+
+    	+static const FBTS_GameplayTags& Get() 
+    	+static void InitializeNativeGameplayTags()
+    }
+
+    interface IAbilitySystemInterface
+    {
+    	+UAbilitySystemComponent* GetAbilitySystemComponent() const override
+    	+UAttributeSet* GetAttributeSet() const
+    }
+
+    note top of BTS_CharacterBase
+        모든 캐릭터의 기본 클래스이자 물리적 표현 엑터인 AvatarActor로 
+        ASC, AS를 소유하고 있으며, 엑터가 사용할 수 있는 능력 리스트를 소유합니다.
+    end note
+
+    note top of BTS_PlayerState
+        플레이어의 정보를 관리하는 클래스이자 OwnerActor로 ASC, AS를 소유하고 있습니다.
+    end note
+
+ '   BTS_GameplayAbility
+ '   BTS_AbilitySystemComponent
+ '   BTS_AttributeSet
+ '   BTS_CharacterBase
+ '   BTS_Player
+ '   BTS_PlayerState
+ '   BTS_GaamplayTags
+ '   FCallerTagMagnitudesMap
+ '   BTS_EffectActor
+'
+    BTS_CharacterBase <|-- BTS_Player
+    BTS_CharacterBase *-- BTS_AbilitySystemComponent
+    BTS_CharacterBase *-- BTS_AttributeSet
+    BTS_CharacterBase *-- BTS_GameplayAbility
+    BTS_PlayerState *-- BTS_AbilitySystemComponent
+    BTS_PlayerState *-- BTS_AttributeSet
+
+    IAbilitySystemInterface <|-- BTS_CharacterBase
+    IAbilitySystemInterface <|-- BTS_PlayerState
+
+@enduml
