@@ -107,12 +107,12 @@ TPS
     }
 
   ```
-  
   </div>
   </details>
-  </br>
-  Ability와 Tag를 바인딩해주는 Class입니다.
   
+  Ability와 Tag를 바인딩해주는 Class입니다.
+  </br></br>
+
   <details>
   <summary>InputComponent Code</summary>
   <div markdown="1">
@@ -169,8 +169,9 @@ TPS
   
   </div>
   </details>
-  </br>
+  
   EnhancedInput을 상속받아 실제 Input이 들어오는 Class
+  </br></br>
   
   <details>
   <summary>PlayerController Code</summary>
@@ -247,9 +248,8 @@ TPS
   
   </div>
   </details>
-  </br>
-
   PlayerController 클래스
+  </br></br>
 
 * AIM
   
@@ -528,9 +528,10 @@ TPS
   
   </div>
   </details>
-  </br>
   Player의 Jump와 Mantle Ability을 구현한 Class입니다.
   AbilityTask_PlayMontageAndWait, MotionWarpingComponent을 사용하여 구현하였습니다.
+  </br></br>
+  </br></br>
 
 ### GAS
 * AbilitySystem
@@ -586,7 +587,6 @@ TPS
   
   </div>
   </details>
-  </br>
 
   <details>
   <summary>AttributeSet Code</summary>
@@ -720,9 +720,9 @@ TPS
   
   </div>
   </details>
-  </br>
   GAS의 핵심이 되는 두 Class입니다. AbilitySystem은 Ability와 Actor를 잇는 다리역할을 하며
   AttributeSet은 GAS에서 사용하는 float형 데이터 Attribute를 관리하는 클래스입니다.
+  </br></br>
 
   
 * EffectActor
@@ -825,9 +825,8 @@ TPS
   
   </div>
   </details>
-  </br>
   GameplayEffect를 편리하게 사용하기 위해 생성한 Class입니다.
   에디터에서 미리 값을 세팅해두거나 런타임에 함수로 SetByCaller 값을 변경하거나
   비트 연산을 통해 어떤 Type Effect를 적용시킬지 정할 수 있습니다.
+  </br></br>
 
-### 
