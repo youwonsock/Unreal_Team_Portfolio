@@ -40,6 +40,7 @@ TPS
   ![c_walk](https://github.com/youwonsock/Unreal_Team_Portfolio/assets/46276141/e5daa4d4-8d07-4e1b-8b6a-736f58d7917b)
   ![jump](https://github.com/youwonsock/Unreal_Team_Portfolio/assets/46276141/2a7d2df4-99dd-4259-aae4-e5e29fcc8ae6)
   ![turnaround](https://github.com/youwonsock/Unreal_Team_Portfolio/assets/46276141/3ee35f60-d7cc-4857-99a3-f545848d2794)
+  
   Player의 이동을 구현하였습니다.
   Sprint, Crouch, Jump를 따로 Ability로 분리하여 제작하였으며 태그를 지정해두면 매칭되는 태그가 들어올때 활성화됩니다.
 
@@ -253,17 +254,13 @@ TPS
 * AIM
   
   ![aim](https://github.com/youwonsock/Unreal_Team_Portfolio/assets/46276141/cc2e49ec-20d3-4e13-88b8-2d24399e2191)
+  
   Player의 조준, 재장전, AIM Offset등을 구현하였습니다.
 
 * Parkour
   
   ![parkur](https://github.com/youwonsock/Unreal_Team_Portfolio/assets/46276141/eefdfda5-3ca6-401d-83f3-1bc85b902d65)
   ![slide](https://github.com/youwonsock/Unreal_Team_Portfolio/assets/46276141/618e5ddc-009d-4bf4-9009-d591783cfa51)
-
-   </div>
-  </details>
-  </br>
-  EnhancedInput을 상속받아 실제 Input이 들어오는 Class
   
   <details>
   <summary>JumpAndMantle Code</summary>
