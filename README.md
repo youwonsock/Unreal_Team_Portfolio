@@ -4,6 +4,7 @@
 * 이름 : 유원석(You Won Sock)
 * GitHub : https://github.com/youwonsock
 * Mail : qazwsx233434@gmail.com
+* 다운로드 : https://drive.google.com/file/d/1tmAbgV77TfjLUCJOEMOyjTgP3fa2sdRQ/view?usp=drive_link 
 
 ## Our Game
 ### Youtube
