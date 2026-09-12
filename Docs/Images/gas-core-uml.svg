@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title desc">
+  <title id="title">Brutal Takedown Squad GAS 핵심 클래스 UML</title>
+  <desc id="desc">PlayerController의 입력 전달, PlayerState의 AbilitySystemComponent 및 AttributeSet 소유, GameplayAbility 활성화 관계를 나타낸 UML</desc>
+  <defs>
+    <style>
+      .bg { fill: #0d1117; }
+      .box { fill: #161b22; stroke: #58a6ff; stroke-width: 2; rx: 10; }
+      .state { stroke: #a371f7; }
+      .ability { stroke: #3fb950; }
+      .attribute { stroke: #f0883e; }
+      .title { fill: #f0f6fc; font: 700 25px Arial, sans-serif; }
+      .name { fill: #f0f6fc; font: 700 17px Consolas, monospace; }
+      .member { fill: #c9d1d9; font: 14px Consolas, monospace; }
+      .label { fill: #8b949e; font: 14px Arial, sans-serif; }
+      .line { fill: none; stroke: #8b949e; stroke-width: 2; }
+      .diamond { fill: #a371f7; stroke: #a371f7; stroke-width: 2; }
+    </style>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#8b949e"/>
+    </marker>
+  </defs>
+
+  <rect class="bg" width="1200" height="720"/>
+  <text class="title" x="600" y="46" text-anchor="middle">GAS Player Architecture</text>
+
+  <g transform="translate(440 100)">
+    <rect class="box" width="320" height="120"/>
+    <text class="name" x="160" y="30" text-anchor="middle">ABTS_PlayerController</text>
+    <path class="line" d="M 0 46 H 320"/>
+    <text class="member" x="18" y="73">+ SetupInputComponent()</text>
+    <text class="member" x="18" y="99">+ AbilityInputTagPressed(Tag)</text>
+  </g>
+
+  <g transform="translate(60 100)">
+    <rect class="box" width="320" height="120"/>
+    <text class="name" x="160" y="30" text-anchor="middle">UBTS_InputComponent</text>
+    <path class="line" d="M 0 46 H 320"/>
+    <text class="member" x="18" y="73">+ BindAbilityActions(...)</text>
+    <text class="member" x="18" y="99">  Started / Triggered / Completed</text>
+  </g>
+
+  <g transform="translate(820 100)">
+    <rect class="box state" width="320" height="120"/>
+    <text class="name" x="160" y="30" text-anchor="middle">ABTS_PlayerState</text>
+    <path class="line" d="M 0 46 H 320"/>
+    <text class="member" x="18" y="73">- AbilitySystemComponent</text>
+    <text class="member" x="18" y="99">- AttributeSet</text>
+  </g>
+
+  <g transform="translate(250 390)">
+    <rect class="box ability" width="360" height="142"/>
+    <text class="name" x="180" y="30" text-anchor="middle">UBTS_AbilitySystemComponent</text>
+    <path class="line" d="M 0 46 H 360"/>
+    <text class="member" x="18" y="73">+ AddCharacterAbilities(...)</text>
+    <text class="member" x="18" y="99">+ AbilityInputTagPressed(Tag)</text>
+    <text class="member" x="18" y="125">+ TryActivateAbility(Handle)</text>
+  </g>
+
+  <g transform="translate(690 390)">
+    <rect class="box attribute" width="300" height="142"/>
+    <text class="name" x="150" y="30" text-anchor="middle">UBTS_AttributeSet</text>
+    <path class="line" d="M 0 46 H 300"/>
+    <text class="member" x="18" y="73">- Health / Stamina</text>
+    <text class="member" x="18" y="99">- Defense / Ammo</text>
+    <text class="member" x="18" y="125">+ PostGameplayEffectExecute()</text>
+  </g>
+
+  <g transform="translate(350 600)">
+    <rect class="box ability" width="500" height="82"/>
+    <text class="name" x="250" y="30" text-anchor="middle">UBTS_GameplayAbility</text>
+    <path class="line" d="M 0 46 H 500"/>
+    <text class="member" x="18" y="70">+ StartupInputTag</text>
+  </g>
+
+  <path class="line" d="M 440 160 H 380" marker-end="url(#arrow)"/>
+  <text class="label" x="410" y="145" text-anchor="middle">binds</text>
+
+  <path class="line" d="M 520 220 V 330 H 430 V 390" marker-end="url(#arrow)"/>
+  <text class="label" x="475" y="320" text-anchor="middle">Tag input</text>
+
+  <path class="line" d="M 900 220 V 280 H 540 V 390" marker-end="url(#arrow)"/>
+  <polygon class="diamond" points="900,220 910,230 900,240 890,230"/>
+  <text class="label" x="710" y="273">owns</text>
+
+  <path class="line" d="M 1040 220 V 300 H 840 V 390" marker-end="url(#arrow)"/>
+  <polygon class="diamond" points="1040,220 1050,230 1040,240 1030,230"/>
+  <text class="label" x="940" y="293">owns</text>
+
+  <path class="line" d="M 430 532 V 600" marker-end="url(#arrow)"/>
+  <text class="label" x="448" y="570">grants / activates</text>
+
+  <path class="line" d="M 610 460 H 690" marker-end="url(#arrow)"/>
+  <text class="label" x="650" y="446" text-anchor="middle">Effect</text>
+</svg>
