@@ -69,7 +69,7 @@ PlayerState가 플레이어의 ASC와 AttributeSet을 소유하고, 서버의 Po
 
 클래스 구조의 원본은 [`UML.plantuml`](UML.plantuml)에서 관리합니다.
 
-> [UML 이미지 플레이스홀더 — `UML.plantuml`을 렌더링한 다이어그램 추가 예정]
+> [UML 플레이스홀더 — GAS 핵심 클래스의 소유·상속·입력 전달 관계를 나타내는 다이어그램 추가 예정]
 
 ### 핵심 관계
 
@@ -106,7 +106,7 @@ PlayerState가 플레이어의 ASC와 AttributeSet을 소유하고, 서버의 Po
 - `ABTS_PlayerController`가 Pressed·Held·Released 입력을 `UBTS_AbilitySystemComponent`로 전달합니다.
 - ASC가 `DynamicAbilityTags`에서 일치하는 Tag를 찾아 입력 상태 갱신과 `TryActivateAbility`를 수행합니다.
 
-> [스크린샷 플레이스홀더 — InputAction·Gameplay Tag 설정]
+> [코드 샘플 플레이스홀더 — `InputAction → Gameplay Tag → GameplayAbility` 입력 바인딩 및 활성화 흐름]
 
 ### 플레이어 이동 및 상태 전환
 
@@ -145,7 +145,7 @@ PlayerState가 플레이어의 ASC와 AttributeSet을 소유하고, 서버의 Po
 
 ![조준](https://github.com/youwonsock/Unreal_Team_Portfolio/assets/46276141/cc2e49ec-20d3-4e13-88b8-2d24399e2191)
 
-> [스크린샷 플레이스홀더 — 사격·재장전 Ability 동작]
+> [코드 샘플 플레이스홀더 — Shoot·Reload Ability의 실행 조건, 입력 해제 및 종료 처리]
 
 ### Jump 및 Mantle
 
