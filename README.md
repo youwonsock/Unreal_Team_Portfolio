@@ -69,7 +69,7 @@ PlayerState가 플레이어의 ASC와 AttributeSet을 소유하고, 서버의 Po
 
 클래스 구조의 원본은 [`UML.plantuml`](UML.plantuml)에서 관리합니다.
 
-> [UML 플레이스홀더 — GAS 핵심 클래스의 소유·상속·입력 전달 관계를 나타내는 다이어그램 추가 예정]
+<img src="Docs/Images/gas-core-uml.svg" alt="GAS 핵심 클래스 UML" width="90%">
 
 ### 핵심 관계
 
@@ -106,7 +106,35 @@ PlayerState가 플레이어의 ASC와 AttributeSet을 소유하고, 서버의 Po
 - `ABTS_PlayerController`가 Pressed·Held·Released 입력을 `UBTS_AbilitySystemComponent`로 전달합니다.
 - ASC가 `DynamicAbilityTags`에서 일치하는 Tag를 찾아 입력 상태 갱신과 `TryActivateAbility`를 수행합니다.
 
-> [코드 샘플 플레이스홀더 — `InputAction → Gameplay Tag → GameplayAbility` 입력 바인딩 및 활성화 흐름]
+#### 핵심 코드 — 입력 Tag 바인딩과 Ability 활성화
+
+```cpp
+// UBTS_InputComponent: InputAction의 상태와 Gameplay Tag를 함께 전달
+for (const FBTS_InputAction& Action : InputConfig->AbilityInputActions)
+{
+    if (!Action.InputAction || !Action.InputTag.IsValid())
+        continue;
+
+    BindAction(Action.InputAction, ETriggerEvent::Started,
+        Object, PressedFunc, Action.InputTag);
+    BindAction(Action.InputAction, ETriggerEvent::Triggered,
+        Object, HeldFunc, Action.InputTag);
+    BindAction(Action.InputAction, ETriggerEvent::Completed,
+        Object, ReleasedFunc, Action.InputTag);
+}
+
+// UBTS_AbilitySystemComponent: 동일한 Tag의 Ability를 찾아 활성화
+for (FGameplayAbilitySpec& AbilitySpec : GetActivatableAbilities())
+{
+    if (!AbilitySpec.DynamicAbilityTags.HasTagExact(InputTag))
+        continue;
+
+    AbilitySpecInputPressed(AbilitySpec);
+    TryActivateAbility(AbilitySpec.Handle);
+}
+```
+
+전체 구현은 [`BTS_InputComponent.h`](Source/BrutalTakedownSquad/Public/Input/BTS_InputComponent.h)와 [`BTS_AbilitySystemComponent.cpp`](Source/BrutalTakedownSquad/Private/AbilitySystem/BTS_AbilitySystemComponent.cpp)에서 확인할 수 있습니다.
 
 ### 플레이어 이동 및 상태 전환
 
@@ -145,7 +173,40 @@ PlayerState가 플레이어의 ASC와 AttributeSet을 소유하고, 서버의 Po
 
 ![조준](https://github.com/youwonsock/Unreal_Team_Portfolio/assets/46276141/cc2e49ec-20d3-4e13-88b8-2d24399e2191)
 
-> [코드 샘플 플레이스홀더 — Shoot·Reload Ability의 실행 조건, 입력 해제 및 종료 처리]
+#### 핵심 코드 — 조준 조건과 무기 Ability 등록
+
+```cpp
+// ADS는 상위 Ability 조건과 캐릭터의 조준 가능 상태를 함께 검사
+bool UBTS_CharacterADS::CanActivateAbility(
+    const FGameplayAbilitySpecHandle Handle,
+    const FGameplayAbilityActorInfo* ActorInfo,
+    const FGameplayTagContainer* SourceTags,
+    const FGameplayTagContainer* TargetTags,
+    FGameplayTagContainer* OptionalRelevantTags) const
+{
+    if (!Super::CanActivateAbility(
+            Handle, ActorInfo, SourceTags, TargetTags, OptionalRelevantTags))
+        return false;
+
+    return Player->GetIsAimable_Implementation();
+}
+
+// 무기 획득 시 주·보조 전투 Ability를 플레이어 ASC에 등록
+void ABTS_Weapon::WhenPickUpThisItem(UAbilitySystemComponent* RawASC)
+{
+    Super::WhenPickUpThisItem(RawASC);
+
+    UBTS_AbilitySystemComponent* ASC =
+        CastChecked<UBTS_AbilitySystemComponent>(RawASC);
+
+    TArray<TSubclassOf<UGameplayAbility>> AbilityClasses;
+    AbilityClasses.Add(PrimaryAbilityClass);
+    AbilityClasses.Add(SecondaryAbilityClass);
+    ASC->AddCharacterAbilities(AbilityClasses);
+}
+```
+
+전체 구현은 [`BTS_CharacterADS.cpp`](Source/BrutalTakedownSquad/Private/AbilitySystem/Ability/Character/BTS_CharacterADS.cpp)와 [`BTS_Weapon.cpp`](Source/BrutalTakedownSquad/Private/Actor/Item/BTS_Weapon.cpp)에서 확인할 수 있습니다.
 
 ### Jump 및 Mantle
 
